@@ -35,6 +35,7 @@ void UPPKeyManualUI::NativeConstruct()
 		ElectricHUDInterface->ShowKeyManualDelegate.AddUObject(this, &UPPKeyManualUI::SetKeyManualImageVisible);
 	}
 
+	CurrentKeyManualImageIndex = 0;
 }
 
 void UPPKeyManualUI::SetAllKeyManualImageHidden()
@@ -68,6 +69,7 @@ void UPPKeyManualUI::SetKeyManualImageVisible(uint32 index)
 	case 1:
 	{
 		KeyManualImage_WASD->SetVisibility(ESlateVisibility::Visible);
+		PlayWASDAnimation();
 	}
 	break;
 	case 2:
@@ -107,5 +109,22 @@ void UPPKeyManualUI::SetKeyManualImageVisible(uint32 index)
 	break;
 	default:
 		break;
+	}
+}
+
+void UPPKeyManualUI::PlayWASDAnimation()
+{
+	if (WASDAnimation)
+	{
+		// WASDAnimation이 재생되고 있는지 확인한 후 만약 해당 애니메이션이 재생 중이면 다른 애니메이션을 재생시킨다.
+		if (IsPlayingAnimation())
+		{
+			PlayAnimation(WASDCloseAnimation);
+		}
+		PlayAnimation(WASDAnimation);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("WASD Animation is nullptr"));
 	}
 }

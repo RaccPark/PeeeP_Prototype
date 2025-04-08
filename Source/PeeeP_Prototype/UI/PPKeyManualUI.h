@@ -33,8 +33,20 @@ protected:
 	UPROPERTY()
 	TObjectPtr <class UImage> KeyManualImage_Grab02;
 
+protected:
+	// 위젯 안에 있는 애니메이션 가져오기
+	UPROPERTY(meta = (BindWidgetAnim), Transient)
+	TObjectPtr<class UWidgetAnimation> WASDAnimation;
+
+	UPROPERTY(meta = (BindWidgetAnim), Transient)
+	TObjectPtr<class UWidgetAnimation> WASDCloseAnimation;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int CurrentKeyManualImageIndex;
+
 public:
 	void SetAllKeyManualImageHidden();
 	void SetKeyManualImageVisible(uint32 index);
 	
+	void PlayWASDAnimation();
 };
